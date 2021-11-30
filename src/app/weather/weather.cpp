@@ -7,7 +7,8 @@
 #include "ArduinoJson.h"
 #include <map>
 
-#define WEATHER_NOW_API "https://www.tianqiapi.com/free/day?appid=%s&appsecret=%s&unescape=1"
+// #define WEATHER_NOW_API "https://www.tianqiapi.com/free/day?appid=%s&appsecret=%s&unescape=1"
+#define WEATHER_NOW_API "https://tianqiapi.com/api?unescape=1&version=v6&appid=%s&appsecret=%s"
 #define WEATHER_DALIY_API "https://www.tianqiapi.com/free/week?unescape=1&appid=%s&appsecret=%s"
 #define TIME_API "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp"
 #define WEATHER_PAGE_SIZE 2
@@ -69,11 +70,12 @@ void getWeather(void)
             strcpy(run_data->wea.cityname, sk["city"].as<String>().c_str());
             run_data->wea.weather_code = weatherMap[sk["wea_img"].as<String>()];
             run_data->wea.temperature = sk["tem"].as<int>();
-            run_data->wea.maxTmep = sk["tem_day"].as<int>();
-            run_data->wea.minTemp = sk["tem_night"].as<int>();
+            run_data->wea.maxTmep = sk["tem1"].as<int>();
+            run_data->wea.minTemp = sk["tem2"].as<int>();
             strcpy(run_data->wea.windDir, sk["win"].as<String>().c_str());
             run_data->wea.windLevel = windLevelAnalyse(sk["win_speed"].as<String>());
             run_data->wea.airQulity = airQulityLevel(sk["air"].as<int>());
+            run_data->wea.humidity = windLevelAnalyse(sk["humidity"].as<String>());
             run_data->state_flag |= 0x01;
             run_data->preWeatherMillis = millis();
         }

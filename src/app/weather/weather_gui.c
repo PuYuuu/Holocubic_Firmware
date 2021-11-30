@@ -216,6 +216,8 @@ void display_weather(struct Weather weaInfo)
 		weaInfo.minTemp,weaInfo.maxTmep,weaInfo.windDir,weaInfo.windLevel);
 	lv_bar_set_value(tempBar, weaInfo.temperature, LV_ANIM_OFF);
 	lv_label_set_text_fmt(tempLabel, "%2d°C",weaInfo.temperature);
+	lv_bar_set_value(humiBar, weaInfo.humidity, LV_ANIM_OFF);
+	lv_label_set_text_fmt(humiLabel, "%2d%%",weaInfo.humidity);
 	lv_img_set_src(weatherImg, weaImage_map[weaInfo.weather_code]);
 }
 
